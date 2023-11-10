@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Stock")
@@ -35,6 +36,30 @@ public class Stock {
 	
 	@Column(name = "quantity")
 	private Integer quantity;
+	
+	@Transient
+	private String warehouseId;
+	@Transient
+	private String productId;
+	
+	
+	
+
+	public String getWarehouseId() {
+		return warehouseId;
+	}
+
+	public void setWarehouseId(String warehouseId) {
+		this.warehouseId = warehouseId;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
 
 	public int getStockId() {
 		return stockId;

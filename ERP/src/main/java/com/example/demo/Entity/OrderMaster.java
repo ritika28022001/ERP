@@ -2,6 +2,8 @@ package com.example.demo.Entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "OrderMaster")
@@ -41,6 +44,48 @@ public class OrderMaster {
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer_id;
+	@Transient
+	private List<Map<String, Object>> orderdetails;
+	
+	
+	public List<Map<String, Object>> getOrderdetails() {
+		return orderdetails;
+	}
+
+	public void setOrderdetails(List<Map<String, Object>> orderdetails) {
+		this.orderdetails = orderdetails;
+	}
+	@Transient
+	private String financialYearId ;
+	@Transient
+	private String userId ;
+	@Transient
+	private String customerId ;
+	
+
+	public String getFinancialYearId() {
+		return financialYearId;
+	}
+
+	public void setFinancialYearId(String financialYearId) {
+		this.financialYearId = financialYearId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
 	public int getOrderId() {
 		return orderId;

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Department")
@@ -24,6 +25,19 @@ public class Department {
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company_id;
+
+	@Transient
+	private String companyId;
+	
+	
+	
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
 
 	public int getDepartmentId() {
 		return departmentId;

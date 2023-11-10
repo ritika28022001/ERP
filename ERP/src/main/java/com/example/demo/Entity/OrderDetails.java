@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "OrderDetails")
@@ -34,6 +35,10 @@ public class OrderDetails {
 	@JoinColumn(name = "order_id")
 	private OrderMaster order_id;
 
+	@Transient
+	private String productId;
+	
+	
 	public int getOrderDetailsId() {
 		return orderDetailsId;
 	}

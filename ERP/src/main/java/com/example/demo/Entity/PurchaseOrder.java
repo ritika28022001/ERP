@@ -2,6 +2,8 @@ package com.example.demo.Entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PurchaseOrder")
@@ -45,6 +48,61 @@ public class PurchaseOrder {
 	@ManyToOne
 	@JoinColumn(name = "vendor_id")
 	private Vendor vendor_id;
+
+	@Transient
+	private List<Map<String, Object>> orderdetails;
+	
+	
+	public List<Map<String, Object>> getOrderdetails() {
+		return orderdetails;
+	}
+
+	public void setOrderdetails(List<Map<String, Object>> orderdetails) {
+		this.orderdetails = orderdetails;
+	}
+
+	@Transient
+	private String vendorId ;
+	@Transient
+   private String userId ;
+	@Transient
+	private String companyId ;
+	@Transient 
+	private String financialYearId ;
+	
+	
+	
+	public String getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(String vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
+	}
+
+	public String getFinancialYearId() {
+		return financialYearId;
+	}
+
+	public void setFinancialYearId(String financialYearId) {
+		this.financialYearId = financialYearId;
+	}
 
 	public int getPurchaseOrderId() {
 		return purchaseOrderId;
