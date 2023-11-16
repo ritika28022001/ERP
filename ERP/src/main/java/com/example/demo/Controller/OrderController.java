@@ -54,7 +54,7 @@ public class OrderController {
 	public ResponseEntity<Map<String, Object>> listBrand(
 			@RequestParam(defaultValue = "1")Integer page,
 			
-			@RequestParam(defaultValue = "5")Integer pageSize,
+			@RequestParam(defaultValue = "1")Integer pageSize,
 			
 			@RequestParam(defaultValue = "DESC") String DIR){
 		
@@ -87,13 +87,13 @@ public class OrderController {
 				       
 			         for (int j = 0; j <  orderDetails.size(); j++) {
 			        	 Map<String, Object> itemdeatilsmap = new HashMap<String, Object>();
-			        	 itemdeatilsmap.put("", orderDetails.get(j).getOrderDetailsId());
-			        	 itemdeatilsmap.put("", orderDetails.get(j).getQuantity());
-			        	 itemdeatilsmap.put("", orderDetails.get(j).getSubTotal());
-			        	 itemdeatilsmap.put("", orderDetails.get(j).getProduct_id());
+			        	 itemdeatilsmap.put("orderDetailsId", orderDetails.get(j).getOrderDetailsId());
+			        	 itemdeatilsmap.put("quantity", orderDetails.get(j).getQuantity());
+			        	 itemdeatilsmap.put("subtotal", orderDetails.get(j).getSubTotal());
+			        	 itemdeatilsmap.put("productId", orderDetails.get(j).getProduct_id());
 			        	 iList.add(itemdeatilsmap);
 			         }
-			         poMap.put("orderdetails", orderDetails);
+			         poMap.put("orderdetails", iList);
 			         list.add(poMap);
 			     }
 			        	 

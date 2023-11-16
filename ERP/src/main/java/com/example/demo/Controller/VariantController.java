@@ -23,8 +23,9 @@ import com.example.demo.Entity.User;
 import com.example.demo.Entity.Variant;
 import com.example.demo.Repository.VariantRepo;
 
-@RestController
+
 @RequestMapping
+@RestController
 public class VariantController {
 
 	@Autowired

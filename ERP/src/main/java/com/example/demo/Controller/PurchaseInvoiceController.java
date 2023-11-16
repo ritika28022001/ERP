@@ -94,7 +94,7 @@ public class PurchaseInvoiceController {
 	public ResponseEntity<?> purchase(@RequestBody PurchaseInvoice purchaseInvoice){
 		PurchaseInvoice purchaseInvoice2 = new PurchaseInvoice();
 		purchaseInvoice2.setPurchaseInvoiceId(purchaseInvoice.getPurchaseInvoiceId());
-		purchaseInvoice2.setPurchaseInvoiceNo(purchaseInvoice2.getPurchaseInvoiceNo());
+		purchaseInvoice2.setPurchaseInvoiceNo(purchaseInvoice.getPurchaseInvoiceNo());
 		purchaseInvoice2.setTotalAmount(purchaseInvoice.getTotalAmount());
 		purchaseInvoice2.setOrderDate(purchaseInvoice.getOrderDate());
 		Company company = new Company();

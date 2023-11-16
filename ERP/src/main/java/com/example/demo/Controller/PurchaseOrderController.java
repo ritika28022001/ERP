@@ -72,6 +72,35 @@ public class PurchaseOrderController {
 		      Page<PurchaseOrder> pageBrands;
 		      pageBrands = purchaseOrderRepo.findByFilterParam(paging);
 		      brands = pageBrands.getContent();
+		      List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			     for(int i=0;i<brands.size();i++) {
+			    	 Map<String, Object> poMap = new HashMap<String, Object>();
+			    	 poMap.put("purchaseOrderId", brands.get(i).getPurchaseOrderId());
+			    	 poMap.put("purchaseOrderNo", brands.get(i).getPurchaseOrderNo());
+			    	 poMap.put("orderDate", brands.get(i).getOrderDate());
+			    	 poMap.put("totalAmount", brands.get(i).getTotalAmount());
+			    	 poMap.put("userId", brands.get(i).getUser_id());
+			    	 poMap.put("vendorId", brands.get(i).getVendor_id());
+			    	 poMap.put("companyId", brands.get(i).getCompany_id());
+			    	 poMap.put("financialYearId", brands.get(i).getFinancial_year_id());
+			    	
+			    	 Integer idInteger = brands.get(i).getPurchaseOrderId();
+			    	 List<PurchaseOrderItems> purchaseOrderItems = new ArrayList<>();
+			    	 purchaseOrderItems= purchaseOrderItemsRepo.findByItem(idInteger);
+			    	 List<Map<String, Object>> iList = new ArrayList<Map<String, Object>>();
+			    	 for (int j = 0; j <  purchaseOrderItems.size(); j++) {
+			        	 Map<String, Object> itemdeatilsmap = new HashMap<String, Object>();
+			        	 itemdeatilsmap.put("purchaseOrderId", purchaseOrderItems.get(j).getPurchaseOrderItemsId());
+			        	 itemdeatilsmap.put("quantity", purchaseOrderItems.get(j).getQuantity());
+			        	 itemdeatilsmap.put("totalAmount", purchaseOrderItems.get(j).getTotalAmount());
+			        	 itemdeatilsmap.put("unitPrice", purchaseOrderItems.get(j).getUnitPrice());
+			        	 itemdeatilsmap.put("productId", purchaseOrderItems.get(j).getProduct_id());
+			        	 iList.add(itemdeatilsmap);
+			    	 }
+			        	 poMap.put("orderDetails", iList);
+			    	 list.add(poMap);
+			    	 }
+		      
 		      Map<String, Object> pageContent = new HashMap<>();
 		      pageContent.put("currentPage", page);
 		      pageContent.put("pageSize", pageBrands.getSize());
@@ -79,7 +108,7 @@ public class PurchaseOrderController {
 		      pageContent.put("totalElements", pageBrands.getTotalElements());
 		      pageContent.put("sortDirection", DIR);
 		      Map<String, Object> response = new HashMap<>();
-		      response.put("data", brands);
+		      response.put("data", list);
 		      response.put("pagination", pageContent);
 		
 			return new ResponseEntity<>(response, HttpStatus.OK);

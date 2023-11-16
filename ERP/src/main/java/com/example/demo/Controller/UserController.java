@@ -81,6 +81,7 @@ private UserRepo userRepo;
 		User user2 = new User();
 		user2.setUserId(user.getUserId());
 		user2.setUserName(user.getUserName());
+		
 		Company company = new Company();
 		company = companyRepo.getById(Integer.parseInt(user.getCompanyId().toString()));
 		user2.setCompany_id(company);

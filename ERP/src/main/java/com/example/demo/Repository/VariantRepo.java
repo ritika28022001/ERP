@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.demo.Entity.Variant;
 import com.example.demo.Entity.Vendor;
 
-public interface VariantRepo extends JpaRepository<Vendor, Integer>{
+public interface VariantRepo extends JpaRepository<Variant, Integer>{
 
 	@Query(value = "select * from Variant", nativeQuery =  true )
 	Page<Variant> findByFilterParam(Pageable paging);

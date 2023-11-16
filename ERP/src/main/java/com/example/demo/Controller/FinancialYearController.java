@@ -65,7 +65,7 @@ public class FinancialYearController {
 		public ResponseEntity<?> financialyear(@RequestBody FinancialYear financialYear){
 			FinancialYear financialYear2 = new FinancialYear();
 			financialYear2.setFinancialYearId(financialYear.getFinancialYearId());
-			financialYear2.setStartDate(financialYear.getEndDate());
+			financialYear2.setStartDate(financialYear.getStartDate());
 			financialYear2.setEndDate(financialYear.getEndDate());
 			financialYearRepo.save(financialYear2);
 			return new ResponseEntity<>("saved", HttpStatus.OK);
