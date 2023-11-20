@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,6 +86,20 @@ public class WarehouseController {
 		warehouse2.setCompany_id(company);
 		warehouseRepo.save(warehouse2);
 		return new ResponseEntity<>("saved", HttpStatus.OK);
+	}
+	
+	@PutMapping("/warehouse/{id}")
+	public ResponseEntity<?> updatewarehouse(@PathVariable Integer id,@RequestBody Warehouse warehouse){
+		Warehouse warehouse2 =warehouseRepo.findById(id).get();
+		warehouse2.setWarehouseId(warehouse.getWarehouseId());
+		warehouse2.setWarehouseName(warehouse.getWarehouseName());
+		warehouse2.setAddress(warehouse.getAddress());
+		Company company= new Company();
+		company = companyRepo.getById(Integer.parseInt(warehouse.getCompanyId().toString()));
+		warehouse2.setCompany_id(company);
+		warehouseRepo.save(warehouse2);
+		return new ResponseEntity<>("saved", HttpStatus.OK);
+		
 	}
 
 }

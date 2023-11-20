@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,5 +90,19 @@ public class ProductController {
 	    product2.setCompany_id(company);
 		productRepo.save(product2);
 		return new ResponseEntity<>("saved", HttpStatus.OK);
+	}
+	
+	@PutMapping("/product/{id}")
+	public ResponseEntity<?> product(@PathVariable Integer idInteger, @RequestBody Product product){
+	   Product newProduct = productRepo.findById(idInteger).get();
+	   newProduct.setProductId(product.getProductId());
+	   newProduct.setProductName(product.getProductName());
+	   Company company = new Company();
+	   company=companyRepo.getById(Integer.parseInt(product.getCompanyId().toString()));
+		newProduct.setCompany_id(company);
+		newProduct.setDescription(product.getDescription());
+	   productRepo.save(newProduct);
+		return new ResponseEntity<>("saved", HttpStatus.OK);
+		
 	}
 }

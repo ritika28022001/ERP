@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,6 +84,19 @@ private CompanyRepo companyRepo;
 		department2.setCompany_id(company);
 		departmentRepo.save(department2);
 		return new ResponseEntity<>("saved", HttpStatus.OK);
+	}
+	
+	@PutMapping("/department/{id}")
+	public ResponseEntity<?> updatedepartmnet(@PathVariable Integer idInteger, @RequestBody Department department){
+		Department newDepartment = departmentRepo.findById(idInteger).get();
+		newDepartment.setDepartmentId(department.getDepartmentId());
+		newDepartment.setDepartmentName(department.getDepartmentName());
+		Company company = new Company();
+		company=companyRepo.getById(Integer.parseInt(department.getCompanyId().toString()));
+		newDepartment.setCompany_id(company);
+		departmentRepo.save(newDepartment);
+		return new  ResponseEntity<>("saved", HttpStatus.OK);
+		
 	}
 		
 }

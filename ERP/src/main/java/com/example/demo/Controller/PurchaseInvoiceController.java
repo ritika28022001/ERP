@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,6 +113,28 @@ public class PurchaseInvoiceController {
 		purchaseInvoice2.setVendor_id(vendor);
 		purchaseInvoiceRepo.save(purchaseInvoice2);
 		return new ResponseEntity<>("saved" ,HttpStatus.OK);
+		
+	}
+	
+	@PutMapping("/purchaseinvoice/{id}")
+	public ResponseEntity<?> po(@PathVariable Integer id, @RequestBody PurchaseInvoice purchaseInvoice){
+		PurchaseInvoice newInvoice= purchaseInvoiceRepo.findById(id).get();
+		newInvoice.setPurchaseInvoiceId(purchaseInvoice.getPurchaseInvoiceId());
+		newInvoice.setPurchaseInvoiceNo(purchaseInvoice.getPurchaseInvoiceNo());
+		newInvoice.setOrderDate(purchaseInvoice.getOrderDate());
+		newInvoice.setTotalAmount(purchaseInvoice.getTotalAmount());
+		Company company = new Company();
+		company=companyRepo.getById(Integer.parseInt(purchaseInvoice.getCompanyId().toString()));
+		newInvoice.setCompany_id(company);
+		FinancialYear financialYear =financialYearRepo.getById(Integer.parseInt(purchaseInvoice.getFinancialYearId().toString()));
+		newInvoice.setFinancial_year_id(financialYear);
+		User user= userRepo.getById(Integer.parseInt(purchaseInvoice.getUserId().toString()));
+		newInvoice.setUser_id(user);
+		Vendor vendor= vendorRep.getById(Integer.parseInt(purchaseInvoice.getVendorId()));
+		newInvoice.setVendor_id(vendor);
+	    purchaseInvoiceRepo.save(newInvoice);
+		
+		return new ResponseEntity<>("saved",HttpStatus.OK);
 		
 	}
 }

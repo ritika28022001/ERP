@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,4 +94,21 @@ private UserRepo userRepo;
 		userRepo.save(user2);
 		return new ResponseEntity<>("saved" , HttpStatus.OK);
 	}
-}
+	@PutMapping("/user/{id}")
+	public ResponseEntity<?> user(@RequestBody User user , @PathVariable Integer id){
+		User user2 = userRepo.findById(id).get();
+		user2.setUserId(user.getUserId());
+		user2.setUserName(user.getUserName());
+		
+		Company company = new Company();
+		company = companyRepo.getById(Integer.parseInt(user.getCompanyId().toString()));
+		user2.setCompany_id(company);
+		
+		Department department = new Department();
+		department= departmentRepo.getById(Integer.parseInt(user.getDepartmentId().toString()));
+		user2.setDepartment_id(department);
+		userRepo.save(user2);
+		return new ResponseEntity<>("saved" , HttpStatus.OK);
+	}
+	}
+

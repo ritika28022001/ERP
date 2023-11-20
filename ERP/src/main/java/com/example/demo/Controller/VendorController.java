@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,6 +78,17 @@ public class VendorController {
 	@PostMapping("/vendor")
 	public ResponseEntity<?> vendor(@RequestBody Vendor vendor){
 		Vendor vendor2 = new Vendor();
+		vendor2.setVendorId(vendor.getVendorId());
+		vendor2.setVendorName(vendor.getVendorName());
+		Company company = new Company();
+		company = companyRepo.getById(Integer.parseInt(vendor.getCompanyId().toString()));
+		vendor2.setCompany_id(company);
+		vendorRepo.save(vendor2);
+		return new ResponseEntity<>("saved", HttpStatus.OK);
+	}
+	@PutMapping("/vendor/{id}")
+	public ResponseEntity<?> vendor(@PathVariable int id, @RequestBody Vendor vendor){
+		Vendor vendor2= vendorRepo.findById(id).get();
 		vendor2.setVendorId(vendor.getVendorId());
 		vendor2.setVendorName(vendor.getVendorName());
 		Company company = new Company();
